@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
  * @param {function} onBlur - onblur event handler function prop
  * @param {function} onFocus - onfocus event handler function prop
  * @param {string} className - class to be applied to the component, component has default class, this will overwrite it
+ * @param {string} title - built - in title attribute for the component
      
  }} 
  * @returns Input Component JSX
@@ -33,6 +34,7 @@ const Input = (
     onBlur,
     onFocus,
     className,
+    title,
   },
   ref
 ) => {
@@ -46,7 +48,7 @@ const Input = (
     className !== null && className !== undefined ? className : classes.Input;
 
   return (
-    <div className={compClass}>
+    <div className={compClass} title={title}>
       {label && <label htmlFor={id}>{label}</label>}
       <input
         type={type || `text`}
