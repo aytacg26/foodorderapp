@@ -1,7 +1,13 @@
+import React, { Fragment } from 'react';
 import './App.css';
+import Header from './components/Layout/Header/Header';
 
-function App() {
-  return <div>Let's Get Started</div>;
-}
+const App = () => {
+  return (
+    <Fragment>
+      <Header />
+    </Fragment>
+  );
+};
 
 export default App;
