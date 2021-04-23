@@ -1,0 +1,32 @@
+.Input {
+  margin: 0.35rem 0.8rem;
+  display: flex;
+  flex-flow: column nowrap;
+  border: 1px solid rgb(228, 228, 228);
+  transition: all 0.2s ease-in;
+  padding: 7px 0;
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+.Input input {
+  padding: 5px 9px;
+  width: 100%;
+  background-color: transparent;
+  border: 0 none;
+  border-radius: 5px;
+  outline: 0 none;
+
+  color: rgb(65, 65, 65);
+}
+
+.Input:focus-within {
+  border-color: greenyellow;
+  box-shadow: 0 0 10px greenyellow;
+}
+
+.Input label {
+  color: rgb(88, 88, 88);
+  margin: 0 0 4px 8px;
+  font-weight: 600;
+}
