@@ -1,42 +1,22 @@
-.MealItem {
-  max-width: 100%;
-  padding: 8px;
-  height: 73px;
-  display: grid;
-  grid-template-columns: 1fr 2fr 60px;
-  grid-template-rows: 1fr;
-  align-items: center;
-  border: 1px solid #ccc;
-  margin: 15px 6px;
-  border-radius: 8px;
-  box-shadow: 1px 1px 3px black;
-  cursor: pointer;
-}
-
-.MealItem:hover {
-  background-color: ivory;
-}
-
-.MealName {
-  font-weight: 600;
-  font-size: 17px;
-  color: rgb(109, 109, 109);
-  margin-left: 8px;
-}
-
-.Desc {
-  color: rgb(133, 133, 133);
-}
-
-.MealPrice {
-  background: #8a2b06;
-  height: 52px;
-  width: 52px;
+.meal {
   display: flex;
-  align-items: center;
-  font-size: 14px;
-  justify-content: center;
-  color: #fff;
-  border-radius: 50%;
-  box-shadow: 1px 1px 3px black;
+  justify-content: space-between;
+  margin: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.meal h3 {
+  margin: 0 0 0.25rem 0;
+}
+
+.description {
+  font-style: italic;
+}
+
+.price {
+  margin-top: 0.25rem;
+  font-weight: bold;
+  color: #ad5502;
+  font-size: 1.25rem;
 }
