@@ -14,6 +14,13 @@
   z-index: 10;
 }
 
+.header h1 {
+  font-family: cursive;
+  font-size: 32px;
+  transform: rotate(-6deg);
+  text-shadow: 2px 2px 5px rgb(34, 34, 34), 3px 3px 8px rgb(10, 10, 10);
+}
+
 .main-image {
   position: relative;
   width: 100%;
@@ -36,7 +43,7 @@
   border-radius: 75% 50% 0 0;
   width: 60%;
   height: 105px;
-  background-color: white;
+  background-color: #3f3f3f;
   right: 0px;
   bottom: -25px;
 }
@@ -48,7 +55,7 @@
   border-radius: 60% 41% 0 0;
   width: 70%;
   height: 120px;
-  background-color: rgb(255, 255, 255);
+  background-color: #3f3f3f;
   left: -8px;
   bottom: -25px;
   transform: rotate(2deg);
