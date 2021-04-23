@@ -1,0 +1,62 @@
+.DropDown {
+  font-family: sans-serif;
+  max-width: 100%;
+  display: flex;
+  margin: 0.35rem 0.8rem;
+  flex-flow: column nowrap;
+  border: 1px solid rgb(228, 228, 228);
+  transition: all 0.2s ease-in;
+  padding: 7px 0;
+  border-radius: 8px;
+  max-width: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+.DropDown select {
+  padding: 5px 7px;
+  margin: 2px 3px;
+  border: 0 none;
+  outline: 0 none;
+  cursor: pointer;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  font-weight: 600;
+  color: rgb(88, 88, 88);
+}
+
+.DropDown select::-ms-expand {
+  display: none !important;
+}
+
+.DropDown select * {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.DropDown::after {
+  content: '';
+  width: 1.2em;
+  height: 0.8em;
+  background-color: greenyellow;
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  position: absolute;
+  right: 10px;
+  top: 61%;
+}
+
+.DropDown.pushUp::after {
+  top: 40%;
+}
+
+.DropDown label {
+  color: rgb(88, 88, 88);
+  margin: 0 0 4px 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.DropDown:focus-within {
+  border-color: greenyellow;
+  box-shadow: 0 0 10px greenyellow;
+}
