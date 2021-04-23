@@ -8,10 +8,12 @@ import PropTypes from 'prop-types';
  * @param {string} label - label for the drop down <select> element (props)
  * @param {string} id - id for select element and it is used on <label htmlFor=id> (props)
  * @param {string} name - name for select element (props)
- * @param {boolena} isMultiple - Specifies that multiple options can be selected at once
- * @param {boolena} isRequired - Specifies that the user is required to select a value before submitting the form
- * @param {number} size - Defines the number of visible options in a drop-down list
- * @param {string} className - class to overwrite current class of the component
+ * @param {boolena} isMultiple - Specifies that multiple options can be selected at once (props)
+ * @param {boolena} isRequired - Specifies that the user is required to select a value before submitting the form (props)
+ * @param {number} size - Defines the number of visible options in a drop-down list (props)
+ * @param {string} className - class to overwrite current class of the component (props)
+ * @param {function} onChange - onchange event handler function for the component (props)
+ * @param {string} title - built-in title attribute for component (props)
  * @returns
  */
 
@@ -24,6 +26,8 @@ const DropDown = ({
   isRequired,
   size,
   className,
+  onChange,
+  title,
 }) => {
   const dropDownClass =
     className !== undefined && className !== null
@@ -31,7 +35,7 @@ const DropDown = ({
       : `${classes.DropDown} ${label ? '' : classes.pushUp}`;
 
   return (
-    <div className={dropDownClass}>
+    <div className={dropDownClass} title={title}>
       {label && <label htmlFor={id}>{label}</label>}
       <select
         id={id}
@@ -39,6 +43,7 @@ const DropDown = ({
         multiple={isMultiple}
         required={isRequired}
         size={size || 1}
+        onChange={onChange}
       >
         {options.map((op) => (
           <option value={op.value} key={op.id}>
