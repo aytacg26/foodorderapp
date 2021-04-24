@@ -35,9 +35,15 @@ const Cart = (props) => {
   return (
     <Modal onClick={props.onClose}>
       {cartItems}
-      <div className={classes.total}>
+      <div
+        className={classes.total}
+        style={{
+          color:
+            Math.abs(context.totalAmount.toFixed(2)) > 0 ? 'black' : '#ccc',
+        }}
+      >
         <span>Total Amount</span>
-        <span>${context.totalAmount.toFixed(2)}</span>
+        <span>${Math.abs(context.totalAmount.toFixed(2))}</span>
       </div>
       <div className={classes.actions}>
         <button className={classes['button--alt']} onClick={props.onClose}>
