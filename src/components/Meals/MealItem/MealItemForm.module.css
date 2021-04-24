@@ -1,5 +1,13 @@
 .form {
   text-align: right;
+  display: flex;
+  align-items: flex-end;
+  flex-flow: column nowrap;
+}
+
+.form p {
+  margin-top: 6px;
+  font-size: 12px;
 }
 
 .form button {
