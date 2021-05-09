@@ -12,13 +12,9 @@ const App = () => {
     setShowCart((prevState) => !prevState);
   };
 
-  const handleOrder = () => {
-    console.log('Ordering...');
-  };
-
   return (
     <CartProvider>
-      {showCart && <Cart onClose={handleCart} onOrder={handleOrder} />}
+      {showCart && <Cart onClose={handleCart} />}
       <Header onClick={handleCart} />
       <main>
         <Meals />
