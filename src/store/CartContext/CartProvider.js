@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import { cartReducer } from './cartReducer';
-import { ADD_ITEM, REMOVE_ITEM } from './Types';
+import { ADD_ITEM, REMOVE_ITEM, CLEAR_CART } from './Types';
 import CartContext from './CartContext';
 
 const CartProvider = (props) => {
@@ -16,11 +16,16 @@ const CartProvider = (props) => {
     dispatch({ type: REMOVE_ITEM, payload: id });
   };
 
+  const clearCart = () => {
+    dispatch({ type: CLEAR_CART });
+  };
+
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
+    clearCart,
   };
 
   return (

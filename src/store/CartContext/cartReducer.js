@@ -1,4 +1,4 @@
-import { ADD_ITEM, REMOVE_ITEM } from './Types';
+import { ADD_ITEM, CLEAR_CART, REMOVE_ITEM } from './Types';
 
 const initalState = {
   items: [],
@@ -49,6 +49,13 @@ export const cartReducer = (state = initalState, action) => {
         ...state,
         items: updatedItems,
         totalAmount: state.totalAmount - existingItem.price,
+      };
+
+    case CLEAR_CART:
+      return {
+        ...state,
+        items: [],
+        totalAmount: 0,
       };
 
     default:
