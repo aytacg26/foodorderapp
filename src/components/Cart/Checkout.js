@@ -46,7 +46,7 @@ const Checkout = (props) => {
     callError: callCityError,
   } = useInputValidator(null, { builtInFn: 'text' });
 
-  const confirmHandler = (e) => {
+  const confirmHandler = async (e) => {
     e.preventDefault();
 
     if (
@@ -77,11 +77,30 @@ const Checkout = (props) => {
       order: context.items,
     };
 
-    console.log(orderData);
-    clearName();
-    clearStreet();
-    clearPostalCode();
-    clearCity();
+    try {
+      const res = await fetch(
+        `https://react-study-87d75-default-rtdb.europe-west1.firebasedatabase.app/orders.json`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(orderData),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error('An unexpected error occured...');
+      }
+
+      console.log(res);
+      clearName();
+      clearStreet();
+      clearPostalCode();
+      clearCity();
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   return (
