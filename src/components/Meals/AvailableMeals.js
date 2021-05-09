@@ -1,45 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../UI/Card/Card';
+import Loader from '../UI/Loader/Loader';
 import classes from './AvailableMeals.module.css';
 import MealItem from './MealItem/MealItem';
 
-const DUMMY_MEALS = [
-  {
-    id: 'm1',
-    name: 'Sushi',
-    description: 'Finest fish and veggies',
-    price: 22.99,
-  },
-  {
-    id: 'm2',
-    name: 'Schnitzel',
-    description: 'A german specialty!',
-    price: 16.5,
-  },
-  {
-    id: 'm3',
-    name: 'Barbecue Burger',
-    description: 'American, raw, meaty',
-    price: 12.99,
-  },
-  {
-    id: 'm4',
-    name: 'Green Bowl',
-    description: 'Healthy...and green...',
-    price: 18.99,
-  },
-];
-
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
-    <MealItem meal={meal} key={meal.id} />
-  ));
+  const [meals, setMeals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      try {
+        const res = await fetch(
+          `https://react-study-87d75-default-rtdb.europe-west1.firebasedatabase.app/meals.json`
+        );
+
+        if (!res.ok) {
+          throw new Error(
+            'We are sorry, an unexpected server error occured...'
+          );
+        }
+
+        const data = await res.json();
+        const meals = Object.values(data)[0];
+        setError(null);
+        setMeals(meals);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        setError(err.message);
+      }
+    };
+
+    fetchMeals();
+  }, []);
+
+  let content = null;
+
+  if (error) {
+    content = (
+      <p style={{ color: 'red', textAlign: 'center', padding: 20 }}>{error}</p>
+    );
+  } else {
+    const mealsList = meals.map((meal) => (
+      <MealItem meal={meal} key={meal.id} />
+    ));
+    content = <ul>{mealsList}</ul>;
+  }
 
   return (
     <section className={classes.meals}>
-      <Card>
-        <ul>{mealsList}</ul>
-      </Card>
+      <Card>{loading ? <Loader /> : content}</Card>
     </section>
   );
 };
