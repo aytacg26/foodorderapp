@@ -44,3 +44,10 @@
   background-color: #8a2b06;
   color: white;
 }
+
+.submitted {
+  text-align: center;
+  color: yellowgreen;
+  padding: 15px 5px;
+  font-weight: 600;
+}

@@ -1,13 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import CartContext from '../../store/CartContext/CartContext';
 import Modal from '../UI/Modal/Modal';
 import CartItem from './CartItem';
 import classes from './Cart.module.css';
 import Checkout from './Checkout';
+import Loader from '../UI/Loader/Loader';
 
 const Cart = (props) => {
   const context = useContext(CartContext);
   const [showCheckout, setShowCheckout] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const hasItems = context.items.length > 0;
 
   const cartItemAddHandler = (item) => {
@@ -21,6 +24,38 @@ const Cart = (props) => {
 
   const handleOrderCheckout = () => {
     setShowCheckout(true);
+  };
+
+  const handleOrder = async (orderData) => {
+    setLoading(true);
+
+    try {
+      const res = await fetch(
+        `https://react-study-87d75-default-rtdb.europe-west1.firebasedatabase.app/orders.json`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(orderData),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error('An unexpected error occured...');
+      } else {
+        setLoading(false);
+        setSubmitted(true);
+        console.log(res);
+        context.clearCart();
+        const closeTimer = setTimeout(() => {
+          props.onClose();
+          clearTimeout(closeTimer);
+        }, 3500);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   const cartItems = (
@@ -51,8 +86,8 @@ const Cart = (props) => {
     </div>
   );
 
-  return (
-    <Modal onClick={props.onClose}>
+  let content = (
+    <Fragment>
       {cartItems}
       <div
         className={classes.total}
@@ -64,10 +99,27 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>${Math.abs(context.totalAmount.toFixed(2))}</span>
       </div>
-      {showCheckout && <Checkout onCancel={props.onClose} />}
+      {showCheckout && (
+        <Checkout onConfirm={handleOrder} onCancel={props.onClose} />
+      )}
       {!showCheckout && orderActions}
-    </Modal>
+    </Fragment>
   );
+
+  if (loading) {
+    content = <Loader />;
+  }
+
+  if (submitted) {
+    content = (
+      <p className={classes.submitted}>
+        Your order successfully submitted. Your meal will be ready and delivered
+        within 45 minutes
+      </p>
+    );
+  }
+
+  return <Modal onClick={props.onClose}>{content}</Modal>;
 };
 
 export default Cart;
