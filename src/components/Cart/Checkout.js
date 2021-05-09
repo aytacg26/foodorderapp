@@ -67,6 +67,7 @@ const Checkout = (props) => {
       return;
     }
 
+    console.log(context);
     const orderData = {
       orderId: `order-${new Date().getTime()}-${new Date().getFullYear()}-${new Date().getDate()}-${name.toLowerCase()}`,
       name,
@@ -94,10 +95,12 @@ const Checkout = (props) => {
       }
 
       console.log(res);
+      context.clearCart();
       clearName();
       clearStreet();
       clearPostalCode();
       clearCity();
+      props.onCancel();
     } catch (error) {
       console.error(error.message);
     }
@@ -122,6 +125,9 @@ const Checkout = (props) => {
           onChange={handleNameChange}
           onBlur={onNameBlur}
         />
+        {hasNameError && (
+          <p className={classes.errorMessage}>Please enter your name</p>
+        )}
       </div>
       <div
         className={
@@ -140,6 +146,9 @@ const Checkout = (props) => {
           onChange={handleStreetChange}
           onBlur={onStreetBlur}
         />
+        {hasStreetError && (
+          <p className={classes.errorMessage}>Please enter your street</p>
+        )}
       </div>
       <div
         className={
@@ -158,6 +167,9 @@ const Checkout = (props) => {
           onChange={handlePostalCodeChange}
           onBlur={onPostalCodeBlur}
         />
+        {hasPostalCodeError && (
+          <p className={classes.errorMessage}>Please enter your postal code</p>
+        )}
       </div>
       <div
         className={
@@ -176,6 +188,9 @@ const Checkout = (props) => {
           onChange={handleCityChange}
           onBlur={onCityBlur}
         />
+        {hasCityError && (
+          <p className={classes.errorMessage}>Please enter your city</p>
+        )}
       </div>
       <div className={classes.actions}>
         <button className={classes.submit}>Confirm</button>
