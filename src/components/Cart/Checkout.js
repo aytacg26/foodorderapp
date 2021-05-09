@@ -67,43 +67,23 @@ const Checkout = (props) => {
       return;
     }
 
-    console.log(context);
     const orderData = {
       orderId: `order-${new Date().getTime()}-${new Date().getFullYear()}-${new Date().getDate()}-${name.toLowerCase()}`,
-      name,
-      street,
-      postalCode,
-      city,
+      customer: {
+        name,
+        street,
+        postalCode,
+        city,
+      },
       orderDate: new Date(),
       order: context.items,
     };
 
-    try {
-      const res = await fetch(
-        `https://react-study-87d75-default-rtdb.europe-west1.firebasedatabase.app/orders.json`,
-        {
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(orderData),
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error('An unexpected error occured...');
-      }
-
-      console.log(res);
-      context.clearCart();
-      clearName();
-      clearStreet();
-      clearPostalCode();
-      clearCity();
-      props.onCancel();
-    } catch (error) {
-      console.error(error.message);
-    }
+    props.onConfirm(orderData);
+    clearName();
+    clearStreet();
+    clearPostalCode();
+    clearCity();
   };
 
   return (
